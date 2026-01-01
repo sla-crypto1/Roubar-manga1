@@ -3,56 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Roubo de Mangas 3D</title>
+    <title>Roubo de Mangas - Mobile</title>
     <style>
-        body { margin: 0; overflow: hidden; font-family: sans-serif; background: #000; touch-action: none; }
+        body { margin: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; background: #1a1a1a; touch-action: none; }
         
         /* HUD */
-        #hud { position: absolute; top: 20px; left: 20px; color: white; pointer-events: auto; }
-        .score-box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 15px; border: 2px solid #ffcc00; cursor: pointer; }
-
+        #hud { position: absolute; top: 20px; left: 20px; color: white; z-index: 10; pointer-events: auto; }
+        .score-box { background: rgba(0,0,0,0.8); padding: 12px 20px; border-radius: 20px; border: 3px solid #ffcc00; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        
         /* MENU DE INVENTÁRIO */
         #inventory-menu { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 80%; max-width: 300px; background: rgba(0,0,0,0.9); border: 3px solid #fff;
-            color: white; padding: 20px; display: none; border-radius: 15px; z-index: 100;
+            width: 85%; max-width: 320px; background: rgba(0,0,0,0.95); border: 4px solid #fff;
+            color: white; padding: 20px; display: none; border-radius: 20px; z-index: 100;
         }
-        .inv-item { border-bottom: 1px solid #444; padding: 10px 0; display: flex; justify-content: space-between; }
-        #close-inv { background: red; color: white; border: none; padding: 5px 10px; float: right; border-radius: 5px; }
+        .inv-item { border-bottom: 1px solid #333; padding: 8px 0; display: flex; justify-content: space-between; font-size: 14px; }
+        #close-inv { background: #ff4444; color: white; border: none; padding: 8px 15px; float: right; border-radius: 8px; font-weight: bold; }
 
-        /* CONTROLES */
-        #joystick-zone { position: absolute; bottom: 40px; left: 40px; width: 150px; height: 150px; }
-        .controls-right { position: absolute; bottom: 40px; right: 40px; display: flex; flex-direction: column; gap: 20px; }
+        /* CONTROLES MOBILE */
+        #joystick-zone { position: absolute; bottom: 40px; left: 40px; width: 150px; height: 150px; z-index: 20; }
+        .controls-right { position: absolute; bottom: 40px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 20; }
+        
         .action-btn { 
-            width: 80px; height: 80px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.6);
+            width: 85px; height: 85px; border-radius: 50%; border: 5px solid rgba(255,255,255,0.4);
             color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;
+            text-shadow: 2px 2px #000; font-size: 14px;
         }
-        #btn-grab { background: radial-gradient(circle, #ffcc00, #ff8800); }
-        #btn-run { background: radial-gradient(circle, #ff4444, #990000); width: 60px; height: 60px; align-self: flex-end; }
+        #btn-grab { background: radial-gradient(circle, #ffcc00, #ff8800); box-shadow: 0 5px 15px rgba(255,200,0,0.4); }
+        
+        /* BOTÃO CORRER TOGGLE */
+        #btn-run { background: #555; width: 65px; height: 65px; align-self: flex-end; transition: 0.3s; }
+        #btn-run.active { background: #00ff44; border-color: #fff; box-shadow: 0 0 20px #00ff44; color: #000; }
 
-        #manga-popup { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center; display: none; pointer-events: none; }
+        /* ALERTAS */
+        #manga-popup { position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%); text-align: center; display: none; pointer-events: none; z-index: 50; }
+        #manga-name { font-size: 35px; margin: 0; filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.8)); }
     </style>
 </head>
 <body>
 
     <div id="hud">
         <div class="score-box" id="open-inv">
-            <span>Mangas: </span><span id="manga-count">0</span> ⮕
+            <span>🥭 Mochila: </span><span id="manga-count">0</span>
         </div>
     </div>
 
     <div id="inventory-menu">
-        <button id="close-inv">X</button>
-        <h3>Minha Mochila</h3>
+        <button id="close-inv">FECHAR</button>
+        <h2 style="color:#ffcc00">Suas Mangas</h2>
         <div id="inv-list"></div>
     </div>
 
     <div id="manga-popup">
-        <p id="manga-rarity"></p>
+        <p id="manga-rarity" style="font-weight:bold; letter-spacing:3px; color:white;"></p>
         <h2 id="manga-name"></h2>
     </div>
 
     <div id="joystick-zone"></div>
+
     <div class="controls-right">
         <div id="btn-run" class="action-btn">CORRER</div>
         <div id="btn-grab" class="action-btn">PEGAR</div>
