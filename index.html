@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Roubo de Mangas 3D</title>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: sans-serif; background: #000; touch-action: none; }
+        
+        /* HUD */
+        #hud { position: absolute; top: 20px; left: 20px; color: white; pointer-events: auto; }
+        .score-box { background: rgba(0,0,0,0.7); padding: 10px 20px; border-radius: 15px; border: 2px solid #ffcc00; cursor: pointer; }
+
+        /* MENU DE INVENTÁRIO */
+        #inventory-menu { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80%; max-width: 300px; background: rgba(0,0,0,0.9); border: 3px solid #fff;
+            color: white; padding: 20px; display: none; border-radius: 15px; z-index: 100;
+        }
+        .inv-item { border-bottom: 1px solid #444; padding: 10px 0; display: flex; justify-content: space-between; }
+        #close-inv { background: red; color: white; border: none; padding: 5px 10px; float: right; border-radius: 5px; }
+
+        /* CONTROLES */
+        #joystick-zone { position: absolute; bottom: 40px; left: 40px; width: 150px; height: 150px; }
+        .controls-right { position: absolute; bottom: 40px; right: 40px; display: flex; flex-direction: column; gap: 20px; }
+        .action-btn { 
+            width: 80px; height: 80px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.6);
+            color: white; font-weight: bold; display: flex; align-items: center; justify-content: center;
+        }
+        #btn-grab { background: radial-gradient(circle, #ffcc00, #ff8800); }
+        #btn-run { background: radial-gradient(circle, #ff4444, #990000); width: 60px; height: 60px; align-self: flex-end; }
+
+        #manga-popup { position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center; display: none; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div id="hud">
+        <div class="score-box" id="open-inv">
+            <span>Mangas: </span><span id="manga-count">0</span> ⮕
+        </div>
+    </div>
+
+    <div id="inventory-menu">
+        <button id="close-inv">X</button>
+        <h3>Minha Mochila</h3>
+        <div id="inv-list"></div>
+    </div>
+
+    <div id="manga-popup">
+        <p id="manga-rarity"></p>
+        <h2 id="manga-name"></h2>
+    </div>
+
+    <div id="joystick-zone"></div>
+    <div class="controls-right">
+        <div id="btn-run" class="action-btn">CORRER</div>
+        <div id="btn-grab" class="action-btn">PEGAR</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.10.1/nipplejs.min.js"></script>
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
